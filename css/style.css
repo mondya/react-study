@@ -1,0 +1,17 @@
+/* 元素（type）选择器: 根据标签名进行匹配 */
+/* p {
+    color: red;
+    background-color: yellow;
+} */
+
+/* 类（class）选择器：根据元素的class属性进行匹配 */
+.c1 {
+    /* background-color: pink; */
+    color: blue;
+}
+
+/*id选择器： 根据元素的id属性进行匹配 */
+#i1 {
+    color: red;
+    display: block;
+}
