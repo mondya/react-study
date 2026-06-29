@@ -24,3 +24,33 @@ function outer(){
     }
     inner();
 }
+
+let stu = {
+    name: '张三',
+    age: 18,
+    sex: '男'
+}
+
+stu.height = 1.88;
+delete stu.age;
+
+stu.study = function(){
+    console.log(`${this.name}正在学习`);
+}
+
+stu.sty = () => {
+    console.log(`${this.name}正在学习`);
+}
+
+
+let stu2 = {_name: '李四'}
+Object.defineProperties(stu2, 'name', {
+    get(){
+        return this._name;
+    },
+    set(value){
+        this._name = value;
+    }
+})
+
+console.log(stu);

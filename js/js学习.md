@@ -1,6 +1,6 @@
-# JavaScript 基础
+# 1. JavaScript 基础
 
-## 变量声明
+## 1.1. 变量声明
 
 ### let
 
@@ -95,9 +95,9 @@ console.log(c); // 输出400
     console.log(window.globalLet); // 输出: undefined
     ```
 
-## 数据类型
+## 1.2. 数据类型
 
-### 基本数据类型
+### 1.2.1. 基本数据类型
 
 - `String`
 - `Number`
@@ -229,391 +229,409 @@ let sym = Symbol('sym');
 console.log(sym); // 输出Symbol(sym)
 ```
 
-### 对象数据类型
-- `Object` (包括 `Function`, `Array`, `Date` 等)
+### 1.2.2. 动态类型 (Dynamic Typing)
 
-#### Array (数组)
+JavaScript 是一种 **动态类型语言**。这意味着变量的类型是在程序 **运行时** 确定的，而不是在编译时。
 
-数组是值的有序集合，可以存储任何类型的数据。
+**核心特点：**
+- **无需预先声明类型**：在声明变量时，你不需要指定它将存储什么类型的数据。
+- **变量类型可变**：同一个变量可以在程序的不同时间点持有不同类型的值。
 
-**创建数组:**
+这与 **静态类型语言** (如 Java, C++, TypeScript) 形成对比，在这些语言中，变量一旦被声明为特定类型，就不能再存储其他类型的数据。
+
+**示例：**
 ```javascript
-// 数组字面量
-let fruits = ['Apple', 'Banana'];
-let mixed = [1, 'hello', true, null];
+let myVar; // 初始时，类型是 undefined
 
-// Array 构造函数
-let numbers = new Array(1, 2, 3, 4, 5);
+myVar = "Hello, World!"; // 赋值后，类型变为 string
+console.log(typeof myVar); // 输出: "string"
+
+myVar = 100; // 再次赋值，类型变为 number
+console.log(typeof myVar); // 输出: "number"
+
+myVar = true; // 类型又变为 boolean
+console.log(typeof myVar); // 输出: "boolean"
 ```
 
-**访问元素:**
-通过索引（从0开始）来访问数组元素。
+**优点与缺点：**
+- **优点**：灵活性高，编写代码速度快，非常适合快速原型开发。
+- **缺点**：可能会导致在运行时才发现的类型错误，而这些错误在静态类型语言中可以在编译阶段就被捕获。这也是 TypeScript (为 JavaScript 添加了静态类型) 如此流行的原因之一。
+
+## 1.3. 运算符与表达式
+
+表达式是任何可以产生一个值的代码单元。运算符是连接表达式以产生新值的特殊符号。
+
+### 1.3.1. 算术运算符
+
+用于执行数学运算。
+
 ```javascript
-console.log(fruits[0]); // 输出: 'Apple'
-console.log(fruits.length); // 输出: 2
+let a = 10;
+let b = 4;
+
+console.log(a + b); // 14 (加)
+console.log(a - b); // 6  (减)
+console.log(a * b); // 40 (乘)
+console.log(a / b); // 2.5(除)
+console.log(a % b); // 2  (取余)
+console.log(a ** b);// 10000 (指数/幂)
+
+a++; // a 变为 11 (自增)
+b--; // b 变为 3  (自减)
 ```
 
-**常用方法:**
-- **修改原数组:**
-  - `push()`: 在数组末尾添加元素。
-  - `pop()`: 删除并返回数组的最后一个元素。
-  - `shift()`: 删除并返回数组的第一个元素。
-  - `unshift()`: 在数组开头添加元素。
-  - `splice()`: 通过删除、替换或添加元素来修改数组。
-- **遍历与转换 (返回新数组或值):**
-  - `forEach()`: 遍历数组的每个元素，执行一个函数 (无返回值)。
-  - `map()`: 创建一个新数组，其结果是该数组中的每个元素都调用一个提供的函数后返回的结果。
-  - `filter()`: 创建一个新数组, 其包含通过所提供函数实现的测试的所有元素。
-  - `join()`: 将数组所有元素连接成一个字符串并返回。
+### 1.3.2. 赋值运算符
 
-**示例 (修改原数组):**
+用于给变量赋值。
+
 ```javascript
-let fruits = ['Apple', 'Banana'];
+let x = 10;
 
-fruits.push('Orange'); // fruits 变为 ['Apple', 'Banana', 'Orange']
-console.log(fruits);
-
-fruits.pop(); // fruits 变为 ['Apple', 'Banana']
-console.log(fruits);
-
-// splice 示例: 从索引 1 开始，删除 1 个元素，并插入 'Mango'
-fruits.splice(1, 1, 'Mango'); // fruits 变为 ['Apple', 'Mango']
-console.log(fruits);
+x += 5; // 等同于 x = x + 5; (x 变为 15)
+x -= 5; // 等同于 x = x - 5; (x 变为 10)
+x *= 2; // 等同于 x = x * 2; (x 变为 20)
+x /= 4; // 等同于 x = x / 4; (x 变为 5)
 ```
 
-**示例 (遍历与转换):**
+### 1.3.3. 比较运算符
+
+用于比较两个值，返回一个布尔值 (`true` 或 `false`)。
+
+- `==` (相等): 只比较值，如果类型不同会尝试类型转换。
+- `===` (严格相等): 比较值和类型，**推荐使用**。
+- `!=` (不相等)
+- `!==` (严格不相等)
+
 ```javascript
-const numbers = [1, 2, 3, 4, 5];
+console.log(5 == '5');   // true (字符串 '5' 被转换为数字 5)
+console.log(5 === '5');  // false (类型不同：number vs string)
 
-// forEach: 遍历数组
-numbers.forEach(num => {
-    console.log(num); // 依次输出 1, 2, 3, 4, 5
-});
+console.log(5 != '5');   // false
+console.log(5 !== '5');  // true
 
-// map: 创建新数组
-const doubled = numbers.map(num => num * 2);
-console.log(doubled); // 输出: [2, 4, 6, 8, 10]
-console.log(numbers); // 原数组不变: [1, 2, 3, 4, 5]
-
-// filter: 创建新数组
-const evens = numbers.filter(num => num % 2 === 0);
-console.log(evens); // 输出: [2, 4]
-console.log(numbers); // 原数组不变: [1, 2, 3, 4, 5]
-
-// join: 连接成字符串
-const str = numbers.join(' - ');
-console.log(str); // 输出: "1 - 2 - 3 - 4 - 5"
+console.log(10 > 5);   // true
+console.log(10 <= 10); // true
 ```
 
-#### Object (对象)
+### 1.3.4. 逻辑运算符
 
-对象是键值对（key-value pairs）的集合，用于存储更复杂的数据结构。键通常是字符串，值可以是任何数据类型。
+用于组合多个布尔表达式。
 
-**创建对象:**
+- `&&` (与): 所有条件都为 `true` 时，结果才为 `true`。
+- `||` (或): 只要有一个条件为 `true`，结果就为 `true`。
+- `!` (非): 取反。
+
+```javascript
+let isSunny = true;
+let isWarm = false;
+
+console.log(isSunny && isWarm); // false
+console.log(isSunny || isWarm); // true
+console.log(!isSunny);          // false
+```
+
+### 1.3.5. 其他运算符
+
+#### 三元运算符
+
+`condition ? value_if_true : value_if_false`
+
+是 `if...else` 语句的简洁写法。
+
+```javascript
+let age = 20;
+let message = (age >= 18) ? 'Adult' : 'Minor';
+console.log(message); // 输出: 'Adult'
+```
+
+#### 空值处理运算符 (ES2020)
+
+- **可选链运算符 (`?.`)**: 允许安全地访问深层嵌套对象的属性，如果引用为 `null` 或 `undefined`，表达式会短路并返回 `undefined`。
+- **空值合并运算符 (`??`)**: 当左侧操作数为 `null` 或 `undefined` 时，返回其右侧操作数。
+
+```javascript
+const user = { name: 'Alice' };
+console.log(user.address?.street); // 输出: undefined (不会报错)
+
+let score = 0;
+console.log(score ?? 100); // 输出: 0 (?? 只对 null 和 undefined 生效)
+```
+
+#### 解构赋值 (Destructuring Assignment)
+
+可以将数组中的值或对象中的属性解构到不同的变量中。
+
+```javascript
+const [first, second] = [10, 20];
+console.log(first); // 10
+
+const { name, age } = { name: 'Bob', age: 30 };
+console.log(name); // Bob
+```
+
+#### 展开运算符 (Spread Operator) `...`
+
+允许一个可迭代对象（如数组）或对象展开。
+
+```javascript
+const arr1 = [1, 2];
+const arr2 = [...arr1, 3, 4]; // [1, 2, 3, 4]
+
+const obj1 = { a: 1, b: 2 };
+const obj2 = { ...obj1, c: 3 }; // { a: 1, b: 2, c: 3 }
+```
+
+#### 类型运算符
+
+- `typeof`: 返回一个表示操作数类型的字符串。
+- `instanceof`: 判断一个对象是否是某个构造函数的实例。
+
+```javascript
+console.log(typeof 100);      // "number"
+console.log(100 instanceof Number); // false (注意: 字面量不是实例)
+console.log(new Number(100) instanceof Number); // true
+```
+
+# 2. 控制流语句
+
+## 2.1. 条件语句
+
+### if...else
+根据条件执行不同的代码块。
+
+```javascript
+let score = 85;
+
+if (score >= 90) {
+    console.log('优秀');
+} else if (score >= 75) {
+    console.log('良好');
+} else {
+    console.log('需要努力');
+}
+// 输出: 良好
+```
+
+### switch
+基于一个表达式的值，匹配对应的 `case` 并执行代码。
+
+```javascript
+let day = new Date().getDay(); // 0 (周日) - 6 (周六)
+
+switch (day) {
+    case 0:
+        console.log('星期天');
+        break; // break 防止“穿透”到下一个 case
+    case 6:
+        console.log('星期六');
+        break;
+    default:
+        console.log('工作日');
+}
+```
+
+## 2.2. 循环语句
+
+### for
+重复执行代码块，直到条件不再满足。
+
+```javascript
+for (let i = 0; i < 3; i++) {
+    console.log(i);
+}
+// 输出: 0, 1, 2
+```
+
+### while
+当条件为 `true` 时，重复执行代码块。
+
+```javascript
+let n = 0;
+while (n < 3) {
+    console.log(n);
+    n++;
+}
+// 输出: 0, 1, 2
+```
+
+### for...in
+遍历对象所有**可枚举的属性名 (key)**。
+
+```javascript
+const person = { name: 'Alice', age: 25 };
+
+for (const key in person) {
+    console.log(`${key}: ${person[key]}`);
+}
+// 输出:
+// name: Alice
+// age: 25
+```
+
+### for...of
+遍历**可迭代对象 (Iterable)** 的**值 (value)**，如 `Array`, `String`, `Map`, `Set` 等。
+
+```javascript
+const colors = ['red', 'green', 'blue'];
+
+for (const color of colors) {
+    console.log(color);
+}
+// 输出:
+// red
+// green
+// blue
+```
+
+#### `for...in` vs `for...of`
+
+| 特性 | `for...in` | `for...of` |
+| :--- | :--- | :--- |
+| **遍历内容** | 对象的 **键 (key)** 或数组的 **索引 (index)** | 可迭代对象的 **值 (value)** |
+| **主要目标** | 普通对象 | 可迭代对象 (Array, String, Map, Set) |
+| **遍历原型链**| **会** | **不会** |
+| **推荐用途** | 遍历对象的键 | 遍历数组、字符串等的值 |
+
+## 2.3. 错误处理
+
+### try...catch...finally
+用于捕获和处理代码执行期间可能发生的错误。
+
+- `try`: 包含可能出错的代码。
+- `catch`: 如果 `try` 块中发生错误，`catch` 块会捕获错误并执行。
+- `finally`: 无论是否发生错误，`finally` 块中的代码总会执行。
+
+```javascript
+try {
+    JSON.parse('{ invalid JSON }'); // 抛出一个 SyntaxError
+} catch (error) {
+    console.error(`捕获到错误: ${error.message}`);
+} finally {
+    console.log('错误处理执行完毕。');
+}
+```
+
+# 3. 数据结构
+
+## 3.1. 对象 (Object)
+
+对象是键值对（key-value pairs）的集合。
+
+**创建与操作:**
 ```javascript
 const person = {
     name: '张三',
     age: 25,
-    isStudent: false,
-
-    // ES5 写法
-    greet: function() {
-        console.log('Hello!');
-    },
-
-    // ES6 方法简写 (更常用)
+    // ES6 方法简写
     sayHello() {
-        // 在对象方法中, `this` 指向该对象本身
         console.log(`Hello, my name is ${this.name}`);
     }
 };
+
+person.city = '北京'; // 添加属性
+person.sayHello(); // 调用方法
 ```
 
-**访问、添加和修改属性:**
-可以通过点符号 (`.`) 或方括号 (`[]`) 来操作属性。
-```javascript
-// 1. 访问属性
-console.log(person.name); // 输出: '张三'
-console.log(person['age']); // 输出: 25
+### 3.1.1. 对象中的私有变量
 
-// 2. 修改属性
-person.age = 26;
-console.log(person.age); // 输出: 26
+JavaScript 没有真正的私有属性，但可以通过一些模式模拟。
 
-// 3. 添加新属性
-person.city = '北京';
-console.log(person.city); // 输出: '北京'
-
-// 4. 调用方法
-person.greet();      // 输出: 'Hello!'
-person.sayHello(); // 输出: 'Hello, my name is 张三'
-```
-
-#### 对象中的私有变量
-
-在 JavaScript 中，常规的对象字面量没有内置的私有属性支持，但可以通过一些模式来实现。
-
-**1. 使用闭包 (The Closure Pattern)**
-
-这是实现真正私有变量的经典模式。通过一个函数创建对象，利用闭包来“隐藏”变量。
+- **闭包模式**: 通过函数作用域隐藏变量。
+- **命名约定**: 使用下划线 `_` 前缀表示“私有”。
+- **私有类字段**: 在 `class` 中使用 `#` 前缀 (ES2022)。
 
 ```javascript
-function createWallet(initialBalance) {
-    let _balance = initialBalance; // 这个变量是私有的，外部无法访问
+class Wallet {
+    #balance = 0; // 私有字段
 
-    return {
-        getBalance() {
-            return _balance;
-        },
-        deposit(amount) {
-            _balance += amount;
-        },
-        withdraw(amount) {
-            if (amount > _balance) {
-                console.log('Insufficient funds!');
-                return;
-            }
-            _balance -= amount;
-        }
-    };
+    constructor(initialBalance) {
+        this.#balance = initialBalance;
+    }
+
+    getBalance() {
+        return this.#balance;
+    }
 }
 
-const myWallet = createWallet(100);
-console.log(myWallet.getBalance()); // 输出: 100
-// console.log(myWallet._balance); // 无法访问，输出 undefined
-
-myWallet.deposit(50);
-console.log(myWallet.getBalance()); // 输出: 150
-
-myWallet.withdraw(200); // 输出: Insufficient funds!
-console.log(myWallet.getBalance()); // 输出: 150
+const myWallet = new Wallet(100);
+console.log(myWallet.getBalance()); // 100
+// console.log(myWallet.#balance); // 语法错误
 ```
 
-**2. 命名约定 (Underscore Prefix)**
+### 3.1.2. JSON (JavaScript Object Notation)
 
-一个常见的约定是在变量名前加上下划线 `_` 来表示它是一个“私有”或“内部”变量。这并不会在技术上阻止访问，但它向其他开发者传达了“请不要直接修改我”的意图。
+一种轻量级的数据交换格式。**键必须是双引号**。
+
+- `JSON.stringify()`: 对象 → JSON 字符串。
+- `JSON.parse()`: JSON 字符串 → 对象。
 
 ```javascript
-const car = {
-    _speed: 0, // 约定为私有
-    accelerate() {
-        this._speed += 10;
-    },
-    getSpeed() {
-        return this._speed;
-    }
+const book = { title: "JavaScript", year: 2023 };
+const jsonString = JSON.stringify(book); // '{"title":"JavaScript","year":2023}'
+const bookObject = JSON.parse(jsonString);
+```
+
+## 3.2. 数组 (Array)
+
+数组是值的有序集合。
+
+**创建与访问:**
+```javascript
+let fruits = ['Apple', 'Banana'];
+console.log(fruits[0]); // 'Apple'
+```
+
+### 3.2.1. 常用方法
+
+- **修改原数组**: `push()`, `pop()`, `shift()`, `unshift()`, `splice()`
+- **返回新数组**: `map()`, `filter()`, `slice()`
+- **遍历**: `forEach()`
+- **其他**: `join()`, `includes()`
+
+```javascript
+const numbers = [1, 2, 3, 4, 5];
+
+const doubled = numbers.map(n => n * 2); // [2, 4, 6, 8, 10]
+const evens = numbers.filter(n => n % 2 === 0); // [2, 4]
+
+numbers.forEach(n => console.log(n));
+```
+
+# 4. 函数
+
+## 4.1. 函数基础
+
+### 函数定义与调用
+
+```js
+function add(a, b = 0) { // b 是带默认值的参数
+    return a + b;
+}
+add(10, 20); // 30
+```
+
+### 函数表达式 (匿名函数)
+
+```js
+const multiply = function(a, b) {
+    return a * b;
 };
-
-car.accelerate();
-console.log(car.getSpeed()); // 输出: 10
-console.log(car._speed); // 仍然可以访问，输出: 10
 ```
 
-**3. ES2022 私有类字段 (Private Class Fields)**
-
-现代 JavaScript 的 `class` 语法支持使用 `#` 前缀来创建真正的私有字段。这是目前在类中最推荐的方式。
-
-```javascript
-class Counter {
-    #count = 0; // #count 是一个私有字段
-
-    increment() {
-        this.#count++;
-    }
-
-    getCount() {
-        return this.#count;
-    }
-}
-
-const counter = new Counter();
-counter.increment();
-console.log(counter.getCount()); // 输出: 1
-// console.log(counter.#count); // 语法错误，无法在类外部访问
-```
-
-# 函数
-
-## 函数定义与调用
-
-- 函数是一种特殊的对象，用于执行代码，定义
+### 箭头函数
 
 ```js
-function 函数名(参数){
-    // 函数体
-    console.log('hello');
-    return 结果;
-}
+const subtract = (a, b) => a - b;
 ```
 
-例子
+## 4.2. 作用域与闭包
 
-```js
-function add(a, b){
-    return a + b;
-}
-```
+- **作用域 (Scope)**: 变量的可访问范围（全局作用域、函数作用域、块级作用域）。
+- **闭包 (Closure)**: 一个函数可以“记住”并访问它被创建时的词法作用域，即使它在当前作用域之外被执行。
 
-调用函数
-
-```js
-函数名(参数);
-```
-
-```js
-let result = add(10, 20);
-console.log(result); // 输出30
-```
-
-函数可以设置默认值，例如
-
-```js
-function add(a = 0, b = 0){
-    return a + b;
-}
-```
-
-调用函数
-
-```js
-函数名(参数);
-```
-
-```js
-let result = add(10);
-console.log(result); // 输出10, 默认b为0
-```
-
-## 函数表达式 (匿名函数)
-
-语法：
-
-```js
-function(参数){
-    // 函数体
-    console.log('hello');
-    return 结果;
-}
-```
-
-匿名函数是没有名称的函数，例如
-
-```js
-let add = function(a, b){
-    return a + b;
-}
-```
-
-调用函数
-
-```js
-let result = add(10, 20);
-console.log(result); // 输出30
-```
-
-- 第一种场景：定义完毕后立即调用
-
-```js
-let result = function(a, b){
-    return a + b;
-}(10, 20);
-console.log(result); // 输出30
-```
-
-- 第二种场景：作为其他对象的方法，例如页面由元素
-
-```html
-<p id ="p1>点我</p>
-```
-
-此元素有一个onclick方法，会在鼠标点击这个元素后被执行，onclick方法刚开始是null，需要赋值后才能使用
-
-```js
-document.getElementById('p1').onclick = function(){
-    console.log('点击了p1元素');
-}
-```
-
-## 箭头函数
-
-```js
-(参数) => 函数体
-```
-
-- 箭头函数是一种特殊的函数，使用箭头（=>）定义，例如
-
-```js
-let add = (a, b) => a + b;
-```
-
-- 调用函数
-
-```js
-let result = add(10, 20);
-console.log(result); // 输出30
-```
-
-- 如果没有参数, 箭头函数的参数部分可以为空
-
-```js
-let sayHello = () => console.log('hello');
-```
-
-- 如果箭头函数的函数体只有一行代码，那么可以省略大括号和return关键字
-
-```js
-let add = (a, b) => a + b;
-```
-
-- 如果只有一个参数, 箭头函数的参数部分可以省略括号
-
-```js
-let double = a => a * 2;
-```
-
-## 作用域与作用域链
-- 全局作用域：在js代码中，任何地方都可以访问的变量，例如
-
-```js
-let a = 100;
-console.log(a); // 输出100
-```
-
-- 函数作用域：在函数内部定义的变量，只能在函数内部访问，例如
-
-```js
-function a() {
-    var z = 30;
-}
-
-
-var x = 10;
-
-function outer(){
-    var y = 20;
-    console.log('outer');
-    function inner(){
-        console.log(`inner, x = ${x}, y = ${y}`);
-//        console.log(`inner, x = ${x}, y = ${y}, z = ${z}`);
-    }
-    inner();
-}
-```
-
-- 调用函数
-```js
-outer(); // 当有z时报错：Uncaught ReferenceError: z is not defined
-```
-## 闭包
-
-闭包允许一个函数访问并操作其外部函数作用域中的变量，即使外部函数已经执行完毕。简单说，就是函数“记住”了它被创建时的环境。
-
-**示例：创建私有变量**
 ```javascript
 function createCounter() {
-    let count = 0; // 局部变量，被闭包“记住”
-
-    // 返回的函数是闭包，它可以访问 count
+    let count = 0;
     return function() {
         count++;
         console.log(count);
@@ -621,8 +639,90 @@ function createCounter() {
 }
 
 const counter = createCounter();
+counter(); // 1
+counter(); // 2
+```
 
-counter(); // 输出: 1
-counter(); // 输出: 2
-// 无法直接访问 count，实现了私有化
+## 4.3. `this` 关键字
+
+`this` 的值在函数被调用时确定，取决于调用的上下文。
+
+- **对象方法中**: `this` 指向该对象。
+- **普通函数中**: `this` 指向全局对象 (`window`) 或在严格模式下为 `undefined`。
+- **箭头函数中**: `this` 继承自外层词法作用域。
+- **`call`, `apply`, `bind`**: 可以显式指定 `this`。
+
+```javascript
+const team = {
+    name: 'Lakers',
+    showTeam() {
+        console.log(this.name); // this 指向 team
+    }
+};
+team.showTeam(); // 'Lakers'
+```
+
+# 5. 原型与继承
+
+## 5.1. 原型链
+
+每个对象都有一个指向其“原型”对象的内部链接。当访问一个属性时，如果在当前对象上找不到，JavaScript 会沿着原型链向上查找。
+
+## 5.2. 构造函数与原型继承
+
+这是实现继承的经典方式。
+
+```javascript
+// 父类
+function Animal(name) {
+    this.name = name;
+}
+Animal.prototype.eat = function() {
+    console.log(`${this.name} is eating.`);
+};
+
+// 子类
+function Dog(name, breed) {
+    Animal.call(this, name); // 继承属性
+    this.breed = breed;
+}
+
+// 继承方法
+Dog.prototype = Object.create(Animal.prototype);
+Dog.prototype.constructor = Dog;
+
+Dog.prototype.bark = function() {
+    console.log('Woof!');
+};
+
+const myDog = new Dog('Buddy', 'Golden Retriever');
+myDog.eat(); // 'Buddy is eating.'
+```
+
+## 5.3. ES6 Class 继承
+
+原型继承的语法糖，是现代 JavaScript 的推荐写法。
+
+```javascript
+class Animal {
+    constructor(name) {
+        this.name = name;
+    }
+    eat() {
+        console.log(`${this.name} is eating.`);
+    }
+}
+
+class Dog extends Animal {
+    constructor(name, breed) {
+        super(name); // 调用父类构造函数
+        this.breed = breed;
+    }
+    bark() {
+        console.log('Woof!');
+    }
+}
+
+const myDog = new Dog('Buddy', 'Golden Retriever');
+myDog.eat(); // 'Buddy is eating.'
 ```
