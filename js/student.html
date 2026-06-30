@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>学生列表</title>
+    <style>
+        body {
+            font-family: cursive, sans-serif;
+            text-align: center;
+        }
+        .title {
+            font-size: 2em;
+            margin: 20px 0;
+        }
+        .table-container {
+            display: inline-block;
+            background-color: #f2f2f2;
+            padding: 15px;
+            border-radius: 8px;
+        }
+        .row {
+            display: flex;
+            justify-content: space-around;
+        }
+        .thead .row {
+            font-weight: bold;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+        }
+        .th, .td {
+            width: 80px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="title">学生列表</div>
+        <div class="thead">
+            <div class="row">
+                <div class="th">编号</div>
+                <div class="th">姓名</div>
+                <div class="th">性别</div>
+                <div class="th">年龄</div>
+            </div>
+        </div>
+
+        <div class="tbody">
+        </div>
+    </div>
+</body>
+<template id="student-template">
+    <div class="row">
+        <div class="td">{{id}}</div>
+        <div class="td">{{name}}</div>
+        <div class="td">{{sex}}</div>
+        <div class="td">{{age}}</div>
+    </div>
+</template>
+<script src="student.js"></script>
+</html>
