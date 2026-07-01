@@ -726,3 +726,9 @@ class Dog extends Animal {
 const myDog = new Dog('Buddy', 'Golden Retriever');
 myDog.eat(); // 'Buddy is eating.'
 ```
+跨域问题（CORS）
+- 只要协议、主机、端口任意一个不同，就会触发跨域问题。例如
+  - http://localhost:7070/a 和https://localhost:7070/b 不同源
+- 同源检查是浏览器的行为，而且只针对fetch、xhr请求
+  - 如果其他客户端，例如java http client, postman，它们是不做同源检查的
+  - 通过表单提交、浏览器直接输入url地址这些方式发送的请求，也不会做同源检查
