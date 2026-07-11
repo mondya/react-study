@@ -1,4 +1,5 @@
 import { Student } from '../model/Student';
+import Avatar from '../components/Avatar';
 
 
 
@@ -15,7 +16,7 @@ function Person({student}: {student: Student}) {
     return (
         <div className="student">
             <div className="avatar">
-                <img src={student.photo} alt="" onClick={handleClick} />
+                <Avatar source={student.photo} alt={student.name} onClick={handleClick} />
             </div>
             <h1 onClick={handleClick}>{student.name}</h1>
             <h2>{student.id}</h2>
