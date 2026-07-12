@@ -3,7 +3,7 @@ import Avatar from '../components/Avatar';
 
 
 
-function Person({student}: {student: Student}) {
+function Person({student, hideAge=false}: {student: Student, hideAge?: boolean}) {
 
 
     // e：事件对象
@@ -11,6 +11,12 @@ function Person({student}: {student: Student}) {
         console.log(student);
         console.log(e);
     }
+
+    // let ageFragment = null;
+    // if (!hideAge) {
+    //     ageFragment = <div>年龄：{student.age}</div>
+    // }
+    const ageFragment = !hideAge && <div>年龄：{student.age}</div>;
 
 
     return (
