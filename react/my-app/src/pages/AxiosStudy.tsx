@@ -1,5 +1,6 @@
 // axios 是一个发送 HTTP 网络请求的工具。
 // 这里使用它向后端请求学生信息。
+// 本组件的完整执行顺序请看：src/pages/AxiosStudy执行流程.md
 import axios from "axios";
 
 // useState：在组件中保存会发生变化的数据。
